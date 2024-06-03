@@ -1,5 +1,6 @@
 package com.fiap.desafio_inovacao_azul.service;
 
+import com.fiap.desafio_inovacao_azul.exception.ResourceNotFoundException;
 import com.fiap.desafio_inovacao_azul.model.Usuario;
 import com.fiap.desafio_inovacao_azul.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,13 @@ public class UsuarioService {
     }
 
     public Optional<Usuario> getUsuarioById(Long id) {
-        return usuarioRepository.findById(id);
+        return Optional.ofNullable(usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o ID: " + id)));
     }
 
     public Usuario updateUsuario(Long id, Usuario usuarioDetails) {
-        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario not found"));
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o ID: " + id));
         usuario.setNomeUsuario(usuarioDetails.getNomeUsuario());
         usuario.setEmail(usuarioDetails.getEmail());
         usuario.setSenha(usuarioDetails.getSenha());
@@ -39,7 +42,8 @@ public class UsuarioService {
     }
 
     public void deleteUsuario(Long id) {
-        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario not found"));
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o ID: " + id));
         usuarioRepository.delete(usuario);
     }
 }
