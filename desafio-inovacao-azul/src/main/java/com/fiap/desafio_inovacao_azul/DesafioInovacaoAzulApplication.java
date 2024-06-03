@@ -9,5 +9,4 @@ public class DesafioInovacaoAzulApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DesafioInovacaoAzulApplication.class, args);
 	}
-
 }

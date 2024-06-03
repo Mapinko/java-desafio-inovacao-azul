@@ -14,25 +14,33 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    // Endpoint para criar um novo usuário
     @PostMapping
     public Usuario createUsuario(@RequestBody Usuario usuario) {
         return usuarioService.createUsuario(usuario);
     }
 
+    // Endpoint para obter todos os usuários
     @GetMapping
     public List<Usuario> getAllUsuarios() {
         return usuarioService.getAllUsuarios();
     }
 
+    // Endpoint para obter um usuário pelo ID
     @GetMapping("/{id}")
     public Optional<Usuario> getUsuarioById(@PathVariable Long id) {
         return usuarioService.getUsuarioById(id);
     }
 
+    // Endpoint para atualizar um usuário pelo ID
     @PutMapping("/{id}")
     public Usuario updateUsuario(@PathVariable Long id, @RequestBody Usuario usuarioDetails) {
         return usuarioService.updateUsuario(id, usuarioDetails);
     }
 
+    // Endpoint para deletar um usuário pelo ID
     @DeleteMapping("/{id}")
-    public void deleteUsuario(@PathVariable Long id
+    public void deleteUsuario(@PathVariable Long id) {
+        usuarioService.deleteUsuario(id);
+    }
+}
