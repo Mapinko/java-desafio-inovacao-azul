@@ -12,8 +12,7 @@ import java.util.Set;
 @Table(name = "USUARIOS")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_USUARIO")
+    @Column(name = "ID_USUARIO", nullable = false)
     private Long id;
 
     @Column(name = "NOME_USUARIO", nullable = false, length = 10)
@@ -25,13 +24,13 @@ public class Usuario {
     @Column(name = "SENHA", nullable = false, length = 20)
     private String senha;
 
-    @Column(name = "NOME_COMPLETO", length = 200)
+    @Column(name = "NOME_COMPLETO", nullable = false, length = 200)
     private String nomeCompleto;
 
-    @Column(name = "DATA_NASCIMENTO")
+    @Column(name = "DATA_NASCIMENTO", nullable = false)
     private Timestamp dataNascimento;
 
-    @Column(name = "TELEFONE", length = 10)
+    @Column(name = "TELEFONE", nullable = false, length = 15)
     private String telefone;
 
     @Column(name = "SEGUINDO")

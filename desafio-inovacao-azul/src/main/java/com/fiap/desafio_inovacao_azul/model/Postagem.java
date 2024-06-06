@@ -3,35 +3,38 @@ package com.fiap.desafio_inovacao_azul.model;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
-import java.util.Date;
-import java.util.Set;
+
+import java.sql.Timestamp;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "POSTAGENS")
 public class Postagem {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_POSTAGEM")
+    @Column(name = "ID_POSTAGEM", nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_USUARIO", nullable = false)
-    private Usuario usuario;
-
-    @Column(name = "TITULO", nullable = false, length = 30)
+    @Column(name = "TITULO", nullable = false, length = 100)
     private String titulo;
 
-    @Column(name = "DATA_CRIACAO")
-    private Date dataCriacao;
+    @Column(name = "CONTEUDO", nullable = false, length = 900)
+    private String conteudo;
+
+    @Column(name = "DATA_CRIACAO", nullable = false)
+    private Timestamp dataCriacao;
 
     @Column(name = "STATUS", nullable = false, length = 7)
     private String status;
 
-    @Column(name = "CATEGORIA", length = 25)
+    @Column(name = "CATEGORIA", nullable = false, length = 25)
     private String categoria;
 
-    @OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
-    private Set<Comentario> comentarios;
+    @Column(name = "CURTIDAS", nullable = false)
+    private int curtidas;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_USUARIO", nullable = false)
+    private Usuario usuario;
 }

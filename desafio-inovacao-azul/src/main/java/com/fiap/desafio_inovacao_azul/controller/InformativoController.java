@@ -11,6 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/informativos")
 public class InformativoController {
+
     @Autowired
     private InformativoService informativoService;
 
