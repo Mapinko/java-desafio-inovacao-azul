@@ -13,10 +13,10 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000", "http://vercel.com/new/mapinkos-projects") // Corrigido para múltiplas origens
+                        .allowedOrigins("*") // Corrigido para múltiplas origens
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos permitidos
                         .allowedHeaders("*") // Cabeçalhos permitidos
-                        .allowCredentials(true); // Permitir credenciais
+                        .allowCredentials(false); // Permitir credenciais
             }
         };
     }
