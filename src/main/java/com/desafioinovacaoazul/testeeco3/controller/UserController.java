@@ -1,5 +1,6 @@
 package com.desafioinovacaoazul.testeeco3.controller;
 
+import com.desafioinovacaoazul.testeeco3.DTO.LoginDTO;
 import com.desafioinovacaoazul.testeeco3.DTO.UserResponseDTO;
 import com.desafioinovacaoazul.testeeco3.model.User;
 import com.desafioinovacaoazul.testeeco3.repository.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,6 +83,24 @@ public class UserController {
         );
         return ResponseEntity.ok(responseDTO);
     }
+
+    // Login
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginRequest) {
+        Optional<User> optionalUser = userRepository.findByEmail(loginRequest.getEmail());
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (user.getPassword().equals(loginRequest.getPassword())) {
+                return ResponseEntity.ok("Login successful");
+            } else {
+                return ResponseEntity.status(401).body("Invalid password");
+            }
+        } else {
+            return ResponseEntity.status(404).body("User not found");
+        }
+    }
+
 
     // Delete User
     @DeleteMapping("/{id}")
